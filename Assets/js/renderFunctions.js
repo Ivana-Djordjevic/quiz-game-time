@@ -1,31 +1,32 @@
 const questions = [{
     question: 'What is the circumference of the Earth?', 
     options: [ '~20k miles', '~22k miles', '~23k miles', '~25k miles' ], 
-    points: [-2, -2, -2, 10],
+  //  points: [-2, -2, -2, 10],
     correctAnswer: 3,
 },{ 
     question: 'What is the circumference of Earths moon?', 
     options: [ '~5k miles', '~6k miles', '~7k miles', '~8k miles' ], 
-    points: [-2, -2, 10, -2],
+   // points: [-2, -2, 10, -2],
     correctAnswer: 2,
 },{ 
     question: 'What is the circumference of the Sun?', 
     options: [ '~1 million miles', '~3 millions miles', '~5 million', '~7 million miles' ], 
-    points: [-2, 10, -2, -2],
+  //  points: [-2, 10, -2, -2],
     correctAnswer: 1,
 },{ 
     question: 'What is the circumference of Pluto?', 
     options: [ '~5k miles', '~6k miles', '~7k miles', '~8k miles' ], 
-    points: [10, -2, -2, -2],
+  //  points: [10, -2, -2, -2],
     correctAnswer: 0,
 },{
     question: 'What is the circumference of the Jupiter?', 
     options: [ '~170k miles', '~200k miles', '~240k miles', '~270k miles' ], 
-    points: [-2, -2, -2, 10],
+  //  points: [-2, -2, -2, 10],
     correctAnswer: 3,
 }
 ]
-// break to reduce word vomit and seperate
+
+const amountOfPoints = 0;
 
 const startButton = document.getElementById("start-button");
 const timer = document.getElementById("timerDisplay");
@@ -37,21 +38,24 @@ let timeLeft = 3000;
 
 let index = 0;
 
-// will replace the questions card, with the calculatedScore card + highScores table 
-// maybe, maybe break it down more, in case there's too much going on within a single function
+// still also need to store the data
+
 function endGame(){
+// #region
+// maybe, maybe break it down more, in case there's too much going on within a single function
+// needs to replace question card with score card
+// needs to combine the results (maybe a separate function)
+// needs to store the results
+// ah fuck also needs a reset button for the scores
+// and a play again button that will swap score card to question card
 
 }
 
-//basic countdown
+//basic countdown (endgamr functio is not filled)
 function updateTimer() {                                      // keeps the seconds moving
     const n = (timeLeft/100).toFixed(2);                      // setting the decimal point, _ _._ _ seconds
     timeLeft--;                                               // increments down the assigned seconds by 1
     timer.innerText = n + ' seconds remaining';               // displays output of this function 
-
-//   if (timeLeft === 2500) {
-//     alert('got you bitch');
-//   }
 
   if (timeLeft === 0.00) {                                    // make it conditional so it doesn't go in the negatives
     clearInterval(timerInterval);                             // stops at 0.00 but for some reason it stop at 0.01 
@@ -64,26 +68,23 @@ function startTimer() {                                        // starts the tim
   timerInterval = setInterval(updateTimer, 10);                // by using '10' the countdown will display the miliseconds too 
 }
 
-// #region 
-// improve for a later time
 // this will display whether they selected the correct or incorrect answer
-// function displayFeedbackMessage (){
+function displayFeedbackMessage (){
 
-//     const feedback = document.createElement('p')
-//     feedback.setAttribute('style', 'padding-top: 10px;');
+    const feedback = document.createElement('p')
+    feedback.setAttribute('style', 'padding-top: 10px;');
 
-//     // #region
-//     //should i put this below the proceedNextFunction so it appears below the options?
-//     //come back to this, after you're done to figure out the order in which JS will read it
-//     // #endregion
-//     questionSection.appendChild(feedback)
+    // #region
+    //should i put this below the proceedNextFunction so it appears below the options?
+    //come back to this, after you're done to figure out the order in which JS will read it
+    // #endregion
+    questionSection.appendChild(feedback)
 
-//     feedback.innerHTML= ''
-//     feedback.textContent = //good question, haven't set that up yet , 
-//     //maybe i can make it fetch from this scope, 
-//     //and have 
-// }
-// #endregion
+    feedback.innerHTML= ''
+    feedback.textContent = //good question, haven't set that up yet , 
+    //maybe i can make it fetch from this scope, 
+    //and have 
+}
 
 // #region 
 // Question for Aristo: at the end of the JS statements, 
@@ -97,20 +98,28 @@ function checkquestion(event) {                               // data processor 
                                                               // you'll need a function that will 
     const clickedButtonElement = event.target
     const selectedOptionAndPointsIndex = clickedButtonElement.getAttribute('data-index') //gets the indices of the clicked answer
-    const correctAnswerPseudoIndex = questions.correctAnswer
+    const correctAnswerPseudoIndex = questions.correctAnswer  // is the number that needs to match the selected index by the user to get a correct answer 
 
-    let amountOfPoints = ooooo
+    if ( selectedOptionAndPointsIndex === correctAnswerPseudoIndex) {   //checks is their answer is correct
+        amountOfPoints = amountOfPoints + 10                            // if so you get 10 points
 
+    }                          
+        else {                                                           // if incorrect answer
+            amountOfPoints = amountOfPoints - 2 ;                        // you lose 2 points
+                                                                         // can you combine two conditions likes that ? 
+            timeLeft -= 1000;                          // does that work since there's a parameter in the function so it can use the time variable?
+            }                       
+     
+        console.log(amountOfPoints)
 
-    if ( selectedOptionAndPointsIndex === correctAnswerPseudoIndex) {
-        return amountOfPoints = 10;
-    }
-    if 
-    // extracted the indices, now you need to compare them 
+    index++;                                                            // go through index one by one
+    proceedNext();                                                      // go through all the questions
 
-// check if answer is correct & update score   
-    index++;
-    proceedNext();
+        console.log(amountOfPoints)
+    
+    endGame()                                        // will end the game when function available
+                                     //does that order make sense? since proceed next will limit the questions through the addOptionElement(), then the checkQuestion(),
+                                     // so when they're both exhausted it will proceed to endGame()
 }
 
 // adding dynamic properties to the answers
@@ -176,15 +185,14 @@ function proceedNext () {
 // not functional, need to connect to click event 
 function replaceHomeSection (questionSection) {
 
-    const homeSection = document.getElementById('root')
+    // const homeSection = document.getElementById('root')
 
-    homeSection.replaceChildren(...questionSection);
-
+    // document.getElementById("root").innerHTML = questionSection;    //replaceChildren(...questionSection);
 }
 
 startButton.addEventListener("click", function(){           //starting up the first cascade of events
     startTimer()        
-   // replaceHomeSection()
+    replaceHomeSection()
     proceedNext()                                           // need to add: Element.replaceChildren()
                                                             // figure out best placement
     // #region 
