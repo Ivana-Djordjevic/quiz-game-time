@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>abysmal</title>
+    <link rel="stylesheet" href="./Assets/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <button id="highscoreButton">
+            Highscores
+        </button>
+        <div id="timerDisplay"> 
+            <p>  seconds remaining</p>
+        </div>
+    </header>  
+
+   <div id="root">
+<!--
+       <button id="add-node-btn">click me</button>
+          <script> 
+            const addNodeButton = document.getElementById('add-node-btn')
+            const childNode = document.createElement('p');
+            
+            addNodeButton.addEventListener('click', addNode)  
+
+            childNode.innerHTML = "the child of the Node";
+            childNode.style.color = 'blue'; 
+
+            function addNode() { 
+
+            const homeSection = document.getElementById('home')
+
+            homeSection.append(childNode);
+            console.log('success');
+            }    
+        </script>
+-->     
+        <section id="home">
+          <h1> 
+            Welcome.
+            <br> If you like giving yourself anxiety, this is the game for you.
+          </h1>
+          <ol>The rules are simple: 
+            <li> 
+              In the span of 30 seconds your goal is to get as many correct answers as possible. 
+            </li>
+            <li> 
+              10 seconds will be deducted for each incorrect answer.
+            </li>
+            <li> 
+              Each correct question is worth 10 points. 
+            </li>
+            <li> 
+              For each incorrect question, 2 points will be deducted.
+            </li>
+            <li> 
+              You can play as many times as you'd like, your highscores will be saved.
+            </li>
+          </ol>
+          <button id="start-button"> 
+            Start Playing 
+          </button>
+        </section>
+    <div/>
+
+    <div id="question-view"> 
+      <div> <!-- question container-->
+        <section id="question">
+      <!-- question code here -->
+        </section>
+        <section id="option">
+      <!-- option code here -->
+        </section>
+      </div>
+  </div>
+
+  <section id='highscoreTable'>
+    <h2> 
+      Highscores  
+    </h2>
+  </section>
+    <section id="save">
+      <!-- save code here -->
+    </section>
+      
+    <script src="./Assets/js/renderFunctions.js"></script>
+</body>
+</html>
+
+<!-- //empty, to be filled
+// Question for Aristo: would you make the points into a separate function?
+// or attempt to combine them since they interconnect
