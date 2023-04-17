@@ -55,6 +55,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    font: 20px;
 }
 #flex {
     display: flex;

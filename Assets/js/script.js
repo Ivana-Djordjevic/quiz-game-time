@@ -106,3 +106,8 @@ function lookAtScores () {
 function deleteLowestScores () {
 
 }
+
+
+
+</body>
+</html>
