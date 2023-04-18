@@ -40,34 +40,82 @@ let timeLeft = 3000;
 
 let index = 0;
 
-// still also need to store the data
+let userScore = new Array(amountOfPoints) // maybe? 
 
-function endGame(){
-    
+const rootSection = document.getElementById('root');    // parent node
+const homeSection = document.getElementById('home');    // child node
+
 // #region
-// 1 - question card tunrs into 
-// question = game over 
-// options = enter initals: [box to enter initals], submit button
-/* <section id='highscoreTable'>
-    <h2> 
-      Game Over!
-    </h2>
-  <form id="form">
-      <label for="initials"> 
-        Enter your itinals:
-      </label>
-      <input type="text" placeholder="type your initials here ^_^" id="iDboxField" />
-      <button id="save">
-        Save
-      </button>
-    </form>
-  </section>
-    <script src="./Assets/js/renderFunctions.js"></script> */
+
+// alright so, we are on the right path
+// we are struggling to envision what the node child for the end will look like
+//
+// okay so CHILD 1:
+//          <h3> will be the title ie Game over 
+//          <p> you score is ____ <br>
+//          <p> Enter your itnitals: 
+//          <input> box to enter initials 
+//          <button> submit
+// that will be the first child node
+//
+// then next CHILD 2: // 2nd child canceled - optmize another time, priortize meeting the bare min 
+//          <h4> Challenge yourseld and try again 
+//          <button> play again 
+//
+// kkay, so let's create those first, and worry about the next stop after
+//
 // #endregion
 
-const scoreSection = document.createElement('section'); //part of template
-scoreSection.setAttribute('id', 'score-view')
 
+
+// userScore.push(newScore);  //newscore not defined, but we are adding new scores to the userScore array which is needed for local storage
+// window.localStorage.setItem('userScore', JSON.stringify(userScore)); // saves to local storage
+
+
+
+//function tryAgainSection
+
+function endGame(){      //i dont know how to make questions section available 
+                        // i set the rootSection and homeQuestion as global varibles and it did not affect the running code
+                        // however setting questionSection as global did negatively affect the code 
+                        // not sure what to do 
+                        
+    const scoreSection = document.createElement('section');
+    scoreSection.setAttribute ('id', 'score-view');          //Child node
+
+    const gameOverMessage = document.createElement('h4');
+    gameOverMessage.setAttribute ('id', 'game-over');
+    gameOverMessage.textContent = 'Game Over!';             // is innerText better?
+
+    const userScoreDisplay = document.createElement('p');
+    userScoreDisplay.setAttribute ('id', 'recent-score');
+    userScoreDisplay.textContent = 'Your score is ' + userScore;
+
+    const inputBox = document.createElement('input');
+    inputBox.setAttribute('id', 'intials-box');
+
+    const submitButton = document.createElement('button');
+    submitButton.setAttribute('id', 'submit-button');
+    submitButton.innerText = 'Submit'; //line below commented to prevent js error 
+   // submitButton.addEventListener('click', tryAgainSection)                     // figured innerText here because it's within the button
+    //                                           // click will go to next child node not yet created
+    //                                           // tryAgainSection not declared, its a placeholder
+    const playAgainButton = document.createElement('button');
+    playAgainButton.setAttribute('id', 'play-again-button')
+    playAgainButton.innerText = 'Click here to go back to the main page';
+    playAgainButton.addEventListener('click', location.reload() ) // not sure about this one 
+                   // do i need a function to reuse dynamic properties of the startButton
+                   // i could maybe a - turn the startbutton into a function, that way when you click play again, the startButton function reruns
+                   // however that does not take into account that it it will be replacing diff nodes
+                   //okay so maybe just bring it back to home page 
+                   // just refresh the page i guess 
+
+    scoreSection.appendChild(gameOverMessage);
+    scoreSection.appendChild(userScoreDisplay);
+    scoreSection.appendChild(inputBox);
+    scoreSection.appendChild(submitButton); 
+
+    rootSection.replaceChild(scoreSection, questionSection);
 }
 
 //basic countdown (endgamr functio is not filled)
@@ -129,9 +177,9 @@ function addOptionElement (optionsSection, index, i) {            // adding prop
       optionsEl.textContent = questions[index].options[i]; // fills the string, with button-anted answers
       optionsSection.appendChild(optionsEl);                   // attaches the buttons above to the optionsSection template
   
-      optionsEl.addEventListener('click', checkquestion)       // adds a click event to all buttons, and directs them
+      optionsEl.addEventListener('click', checkquestion);       // adds a click event to all buttons, and directs them
                                                                // to a function that will check if the user chose the correct answer
-      console.log(optionsSection, index)
+     // console.log(optionsSection, index);
 }
 
 //sets up display for the question card 
@@ -144,14 +192,14 @@ function proceedNext () {
 
     const questionEl = document.createElement('h3');        //assigning a question the <h3> status
 
-    questionSection.appendChild(questionEl)                 // arrange to form a whole template
-    questionSection.appendChild(optionsSection)     
+    questionSection.appendChild(questionEl);                 // arrange to form a whole template
+    questionSection.appendChild(optionsSection);     
 
-    const questionConfig = questions[index]                 // reaches into questions main variable 
+    const questionConfig = questions[index];                 // reaches into questions main variable 
     const questionOptions = questionConfig.options;         // reaches in the 'options' subcategory of the main variable
 
     // questionSection.innerHTML = '' ;                     // creating space to hold a string 
-    questionEl.textContent = questionConfig.question        // fills string above with a question (the loop will increment them)
+    questionEl.textContent = questionConfig.question;        // fills string above with a question (the loop will increment them)
 
     for (let i = 0; i < questionOptions.length; i++) {      // goes through all possible answers
         addOptionElement(optionsSection, index, i)          // function that will apply to all the answers
@@ -181,8 +229,7 @@ function replaceHomeSection () {
     const feedbackSection = document.createElement('section')
     feedbackSection.setAttribute('id', 'feedback')
 
-    const rootSection = document.getElementById('root');    // parent node
-    const homeSection = document.getElementById('home');    // child node
+    
 
     // console.log(questionSection)
     // console.log(homeSection)
@@ -199,11 +246,6 @@ startButton.addEventListener('click', function(){
     proceedNext()   
 });
 
-//will render them in a list 
-// function renderScoreList () {
-//     let scoreList = document.createElement('li');
-// }
-
 // to save the user's scores 
 
 function saveScores(amountOfPoints) {
@@ -212,6 +254,7 @@ function saveScores(amountOfPoints) {
    
    { 
 
+// class example:
 //     student: student.value,
 //     grade: grade.value,
 //     comment: comment.value.trim()
@@ -220,34 +263,5 @@ function saveScores(amountOfPoints) {
 //  localStorage.setItem("studentGrade", JSON.stringify(studentGrade));
 }}
  
-// #region
-// kkay well at least we've got a timer, basic, but it works]
-// what other simple task can i do that will improve me mood
-// ? oh, we can make the questions and answers
-// #endregion
 
 
-//#region
-// what else can i handle at the moment 
-//break it down
-// break it down even more 
-// what's a little thing you can do
-// #endregion
-
-// #region
-
-// function createHomeNode () {
-//     // create a root node, for the home component
-//     // add any attributes to to the home component
-//     // add any children to the home component 
-// }
-
-// function createButtonNode (){
-
-// }
-
-// function createScoreNode () {
-
-// } 
-
-// #endregion

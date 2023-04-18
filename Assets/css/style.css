@@ -66,6 +66,7 @@ header {
 
 #highscoreTable {
     padding-left: 100px;
+    display: inline-flex;
 }
 
 #highscoreButton {
