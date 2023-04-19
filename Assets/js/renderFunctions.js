@@ -1,37 +1,36 @@
 const questions = [{
     question: 'What is the circumference of the Earth?', 
     options: [ '~20k miles', '~22k miles', '~23k miles', '~25k miles' ], 
-  //  points: [-2, -2, -2, 10],
     correctAnswer: 3,
-},{ 
+},
+{ 
     question: 'What is the circumference of Earths moon?', 
     options: [ '~5k miles', '~6k miles', '~7k miles', '~8k miles' ], 
-   // points: [-2, -2, 10, -2],
     correctAnswer: 2,
 },{ 
     question: 'What is the circumference of the Sun?', 
     options: [ '~1 million miles', '~3 millions miles', '~5 million', '~7 million miles' ], 
-  //  points: [-2, 10, -2, -2],
     correctAnswer: 1,
 },{ 
     question: 'What is the circumference of Pluto?', 
     options: [ '~5k miles', '~6k miles', '~7k miles', '~8k miles' ], 
-  //  points: [10, -2, -2, -2],
     correctAnswer: 0,
 },{
     question: 'What is the circumference of the Jupiter?', 
     options: [ '~170k miles', '~200k miles', '~240k miles', '~270k miles' ], 
-  //  points: [-2, -2, -2, 10],
     correctAnswer: 3,
 }
 ]
 
-const feedbackOptions = ['Correct Answer!', 'Incorrect Answer, -10 seconds x_X'];
+const feedbackOptions = {
+    success: 'Correct Answer!', 
+    incorrect:'Incorrect Answer, -10 seconds o_0',
+}
 
 let amountOfPoints = 0;
 
-const startButton = document.getElementById("start-button");
-const timer = document.getElementById("timerDisplay");
+const startButton = document.getElementById('start-button');
+const timer = document.getElementById('timerDisplay');
 
 startButton.setAttribute("style", "font-size: 30px; border-radius: 20px; padding: 10px; " );
 timer.setAttribute("style", "font-size: 30px; text-shadow: 2px 2px 4px rgba(3, 2, 5, 0.5);" );
@@ -40,146 +39,124 @@ let timeLeft = 3000;
 
 let index = 0;
 
-let userScore = new Array(amountOfPoints) // maybe? 
+const rootSection = document.getElementById('root');                        // parent node
+const homeSection = document.getElementById('home');                        // child node
 
-const rootSection = document.getElementById('root');    // parent node
-const homeSection = document.getElementById('home');    // child node
-
-// #region
-
-// alright so, we are on the right path
-// we are struggling to envision what the node child for the end will look like
-//
-// okay so CHILD 1:
-//          <h3> will be the title ie Game over 
-//          <p> you score is ____ <br>
-//          <p> Enter your itnitals: 
-//          <input> box to enter initials 
-//          <button> submit
-// that will be the first child node
-//
-// then next CHILD 2: // 2nd child canceled - optmize another time, priortize meeting the bare min 
-//          <h4> Challenge yourseld and try again 
-//          <button> play again 
-//
-// kkay, so let's create those first, and worry about the next stop after
-//
-// #endregion
-
-
-
-// userScore.push(newScore);  //newscore not defined, but we are adding new scores to the userScore array which is needed for local storage
-// window.localStorage.setItem('userScore', JSON.stringify(userScore)); // saves to local storage
-
-
-
-//function tryAgainSection
-
-function endGame(){      //i dont know how to make questions section available 
-                        // i set the rootSection and homeQuestion as global varibles and it did not affect the running code
-                        // however setting questionSection as global did negatively affect the code 
-                        // not sure what to do 
+function endGame(){     
+                                       
+    clearInterval(timerInterval); 
                         
     const scoreSection = document.createElement('section');
-    scoreSection.setAttribute ('id', 'score-view');          //Child node
+    scoreSection.setAttribute ('id', 'score-view');                          //Child node
 
     const gameOverMessage = document.createElement('h4');
     gameOverMessage.setAttribute ('id', 'game-over');
-    gameOverMessage.textContent = 'Game Over!';             // is innerText better?
+    gameOverMessage.innerText = 'Game Over!';             
+
+    scoreSection.appendChild(gameOverMessage);
 
     const userScoreDisplay = document.createElement('p');
     userScoreDisplay.setAttribute ('id', 'recent-score');
-    userScoreDisplay.textContent = 'Your score is ' + userScore;
+    userScoreDisplay.innerText = 'Your score is ' + amountOfPoints;          // userscore is a placeholder until we figure out the localstorage stuff
+
+    scoreSection.appendChild(userScoreDisplay);
 
     const inputBox = document.createElement('input');
-    inputBox.setAttribute('id', 'intials-box');
+    inputBox.setAttribute('id', 'initials-box', 'placeholder', 'Enter your initals here');
+//    document.getElementById('initals-box').placeholder = 'Enter your initals here';
+    inputBox.addEventListener('keypress', function(event){
+    if (event.key === 'Enter'){
+        handleSaveHighscore(amountOfPoints)
+    }
+})
+    scoreSection.appendChild(inputBox);
 
     const submitButton = document.createElement('button');
     submitButton.setAttribute('id', 'submit-button');
-    submitButton.innerText = 'Submit'; //line below commented to prevent js error 
-   // submitButton.addEventListener('click', tryAgainSection)                     // figured innerText here because it's within the button
-    //                                           // click will go to next child node not yet created
-    //                                           // tryAgainSection not declared, its a placeholder
-    const playAgainButton = document.createElement('button');
-    playAgainButton.setAttribute('id', 'play-again-button')
-    playAgainButton.innerText = 'Click here to go back to the main page';
-    playAgainButton.addEventListener('click', location.reload() ) // not sure about this one 
-                   // do i need a function to reuse dynamic properties of the startButton
-                   // i could maybe a - turn the startbutton into a function, that way when you click play again, the startButton function reruns
-                   // however that does not take into account that it it will be replacing diff nodes
-                   //okay so maybe just bring it back to home page 
-                   // just refresh the page i guess 
+    submitButton.innerText = 'Submit'; 
 
-    scoreSection.appendChild(gameOverMessage);
-    scoreSection.appendChild(userScoreDisplay);
-    scoreSection.appendChild(inputBox);
     scoreSection.appendChild(submitButton); 
 
+    submitButton.addEventListener('click', function(event){
+        event.preventDefault();
+        handleSaveHighscore(amountOfPoints);
+    });
+//        feedbackSection.remove(feedback);  
+    loadScores()
+    document.getElementById('reset-scores').addEventListener('click', function(event){
+        localStorage.removeItem('high-scores')
+        loadScores()
+    })
+
+    const playAgainButton = document.createElement('button');
+    playAgainButton.setAttribute('id', 'play-again-button');
+    playAgainButton.innerText = 'Click here to go back to the main page'; 
+
+    playAgainButton.addEventListener('click', location.reload);         // cannot invoke the function here otherwise, it will run outside the button and refresh the page on its own .: must remove the parenthesis 
+
+    const questionSection = document.getElementById('question-view');    
+
     rootSection.replaceChild(scoreSection, questionSection);
+
+    return amountOfPoints;
+
 }
 
-//basic countdown (endgamr functio is not filled)
-function updateTimer() {                                      // keeps the seconds moving
-    const n = (timeLeft/100).toFixed(2);                      // setting the decimal point, _ _._ _ seconds
-    timeLeft--;                                               // increments down the assigned seconds by 1
-    timer.innerText = n + ' seconds remaining';               // displays output of this function 
+// countdown timer
+function updateTimer() {                                                // keeps the seconds moving
+    const n = (timeLeft/100).toFixed(2);                                // setting the decimal point, _ _._ _ seconds
+    timeLeft--;                                                         // increments down the assigned seconds by 1
+    timer.innerText = n + ' seconds remaining';                         // displays output of this function 
 
-  if (timeLeft <= 0) {                                    // make it conditional so it doesn't go in the negatives
-    clearInterval(timerInterval);                             // stops at 0.00 but for some reason it stop at 0.01 
+  if (timeLeft <= 0) {                                                  // make it conditional so it doesn't go in the negatives
     timer.innerText = 0 + ' seconds remaining'; 
-    endGame ();                                               // will replace the questionSection with a calculatedScore section + 
+    endGame();                                                          // replaces question card with score card    
   }
 }
 
 //start timer
-function startTimer() {                                        // starts the timer
-  timerInterval = setInterval(updateTimer, 10);                // by using '10' the countdown will display the miliseconds too 
+function startTimer() {                                                 // starts the timer
+  timerInterval = setInterval(updateTimer, 10);                         // by using '10' the countdown will display the miliseconds too 
 }
 
 // central grader
-function checkquestion(event) {                               // data processor that ouputs the if the user selected a correct or incorrect answer
-                                                              // you'll need a function that will 
-    const clickedButtonElement = event.target
-    const selectedOptionAndPointsIndex = parseInt(clickedButtonElement.getAttribute('data-index')) //gets the indices of the clicked answer
-    const correctAnswerPseudoIndex = questions[index].correctAnswer  // is the number that needs to match the selected index by the user to get a correct answer 
+function checkquestion(event) {                                         // data processor: grades the answers. assigns points and deducts time given incorrectness of answer 
+                                                             
+    const clickedButtonElement = event.target                           // when you click on an answer, this function will execute the code below
+    const selectedOptionIndex = parseInt(clickedButtonElement.getAttribute('data-index')) //gets the indices of the clicked answer
+    const correctAnswerPseudoIndex = questions[index].correctAnswer     // is the number that needs to match the selected index by the user to get a correct answer 
 
-    console.log({selectedOptionAndPointsIndex, correctAnswerPseudoIndex})
-
-    if ( selectedOptionAndPointsIndex === correctAnswerPseudoIndex) {   //checks is their answer is correct
+    if ( selectedOptionIndex === correctAnswerPseudoIndex) {             //checks if their answer is correct
         amountOfPoints = amountOfPoints + 10 ;                           // if so you get 10 points
-        displayFeedbackMessage(0);
+        displayFeedbackMessage('success');                               // user receives feedback of correct answer
     }                          
         else {                                                           // if incorrect answer
             amountOfPoints = amountOfPoints - 2 ;                        // you lose 2 points
-            timeLeft -= 1000;                          
-            displayFeedbackMessage(1);
+            timeLeft -= 1000;                                            // 10 seconds deducted from timer
+            displayFeedbackMessage('incorrect');                         // user receives feedback of incorrect asnwer
             }                       
      
-//        console.log(amountOfPoints);
-
-    if (index === questions.length -1) {
-        endGame()
+    if (index === questions.length -1) {                                 // .length returns the total amount of elements, .: 5 questions, -1 because array indices start at 0
+        endGame();                                                       // replaces question card with score card 
     } else {
-        index++;                                                            // go through index one by one
-        proceedNext();                                                      // go through all the questions    
+        index++;                                                         // go through index one by one
+        proceedNext();                                                   // grade each click   
     } 
-//        console.log(amountOfPoints);
+    
+    return amountOfPoints;                                               // total value of points earned within one quiz
 }
 
 // adding dynamic properties to the answers
-function addOptionElement (optionsSection, index, i) {            // adding properties(values) to the answers
+function addOptionElement (optionsSection, index, i) {            
 
-    console.log(index, i)
-    const optionsEl = document.createElement('button');        // turn the answers into buttons
-    optionsEl.setAttribute('data-index', i) 
+    const optionsEl = document.createElement('button');                 // tunrs all optionsEl into a button
+    optionsEl.setAttribute('data-index', i)                             // could not reach = questions[index].options[i] because [index]*2 in the same line does not work, needed to denotate them individually 
       
-      // optionsSection.innerHTML = ''                            // create a space to hold string, was removed
-      optionsEl.textContent = questions[index].options[i]; // fills the string, with button-anted answers
-      optionsSection.appendChild(optionsEl);                   // attaches the buttons above to the optionsSection template
+      // optionsSection.innerHTML = ''                                  // create a space to hold string, was removed
+      optionsEl.innerText = questions[index].options[i];                // fills the string, with button-anted answers
+      optionsSection.appendChild(optionsEl);                            // attaches the button-ated options to the optionsSection template
   
-      optionsEl.addEventListener('click', checkquestion);       // adds a click event to all buttons, and directs them
-                                                               // to a function that will check if the user chose the correct answer
-     // console.log(optionsSection, index);
+      optionsEl.addEventListener('click', checkquestion);               // adds a click event to all buttons, and directs them to the central grader
 }
 
 //sets up display for the question card 
@@ -187,6 +164,7 @@ function proceedNext () {
 
     const questionSection = document.getElementById('question-view');
     questionSection.innerHTML= '';
+
     const optionsSection = document.createElement('section'); // part of template
     optionsSection.setAttribute('id', 'options-space');
 
@@ -199,7 +177,7 @@ function proceedNext () {
     const questionOptions = questionConfig.options;         // reaches in the 'options' subcategory of the main variable
 
     // questionSection.innerHTML = '' ;                     // creating space to hold a string 
-    questionEl.textContent = questionConfig.question;        // fills string above with a question (the loop will increment them)
+    questionEl.innerText = questionConfig.question;        // fills string above with a question (the loop will increment them)
 
     for (let i = 0; i < questionOptions.length; i++) {      // goes through all possible answers
         addOptionElement(optionsSection, index, i)          // function that will apply to all the answers
@@ -208,31 +186,25 @@ function proceedNext () {
 }
 
 // this will display whether they selected the correct or incorrect answer
-function displayFeedbackMessage (feedbackIndex){
+function displayFeedbackMessage (feedbackKey){
 
-    const feedback = document.createElement('p')                 // new element to add
-    feedback.setAttribute('style', 'padding-top: 10px;');     // padding so it's not glued beneath the options
+    const feedback = document.createElement('p')                 
+    feedback.setAttribute('style', 'padding-left: 10px;');             // padding so it's not glued beneath the options
     
-    feedback.textContent= feedbackOptions[feedbackIndex]
-    const feedbackSection = document.getElementById('feedback')  
-    feedbackSection.innerHTML = ''
-    feedbackSection.appendChild(feedback)                         // it's below the proceedNext () .: should appear below the options
+    feedback.innerText= feedbackOptions[feedbackKey];                  // goes through the key here, .: during the proceedNext function, you can assign which value you want 
+    const feedbackSection = document.getElementById('feedback');  
+    feedbackSection.innerHTML = '';
+    feedbackSection.appendChild(feedback);                             // it's below the proceedNext () .: should appear below the options
 }
 
+// replaces home card with question card, maybe optimize later to have a replace function where you can apply both the question card and the score card if that's plausible 
+function replaceHomeSection() {
 
-//optimize later, just make a separate function for the other replacements
-function replaceHomeSection () {
-
-    const questionSection = document.createElement('section'); //part of template
+    const questionSection = document.createElement('section');          
     questionSection.setAttribute('id', 'question-view')
 
     const feedbackSection = document.createElement('section')
     feedbackSection.setAttribute('id', 'feedback')
-
-    
-
-    // console.log(questionSection)
-    // console.log(homeSection)
 
     rootSection.replaceChild(questionSection, homeSection);    
    
@@ -241,27 +213,64 @@ function replaceHomeSection () {
 
 //starting up the first cascade of events
 startButton.addEventListener('click', function(){           
-    startTimer()     
-    replaceHomeSection()
-    proceedNext()   
+    startTimer();     
+    replaceHomeSection();
+    proceedNext();   
 });
 
-// to save the user's scores 
+function handleSaveHighscore(amountOfPoints) {
 
-function saveScores(amountOfPoints) {
-// Save related form data as an object
-   let storeScores = JSON.parse(localStorage.getItem(amountOfPoints));
-   
-   { 
+    const initialsInput = document.getElementById('initials-box').value.trim();
 
-// class example:
-//     student: student.value,
-//     grade: grade.value,
-//     comment: comment.value.trim()
-//  };
-// Use .setItem() to store object in storage and JSON.stringify to convert it as a string
-//  localStorage.setItem("studentGrade", JSON.stringify(studentGrade));
-}}
- 
+    if(initialsInput === ''){
+        alert('Please enter valid initials');
+        return;
+    }
+    saveToStorage({
+        initials: initialsInput,
+        score: amountOfPoints,
+    })
 
+    // #region
+    // function saveHighscore() {
 
+    //     const inputBox = document.createElement('input');
+
+    //     inputBox.addEventListener('keypress', function(event) {  //display function potential wip, maybe? so it displays the score and initals 
+    //         if (event.key === 'Enter') {
+    //             event.preventDefault();
+    //             document.getElementById('submit-button').click();
+    //         }
+    //     })     // to grab user initals 
+    // } 
+    // #endregion
+}
+
+function loadScores(){
+    var currentScores = JSON.parse(localStorage.getItem('high-scores'));
+    var scoreList = document.getElementById('score-list');
+    scoreList.innerHTML = '';
+    if(currentScores === null){
+        return;
+    }
+
+    currentScores.forEach(element => {
+        var newListItem = document.createElement('li')
+        newListItem.textContent =`${element.initials} : ${element.score}`;
+        scoreList.append(newListItem);
+    });
+}
+
+function saveToStorage(newScore){
+
+    var currentScores = JSON.parse(localStorage.getItem('high-scores'));
+
+    if(!currentScores){
+        localStorage.setItem('high-scores', JSON.stringify([newScore]))
+        return;
+    }
+
+    currentScores.push(newScore);
+    localStorage.setItem('high-scores', JSON.stringify(currentScores));
+    loadScores();
+}

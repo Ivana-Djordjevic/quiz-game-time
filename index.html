@@ -11,7 +11,7 @@
 <body>
 
     <header>
-        <button id="highscoreButton">
+        <button id="highscoreButton" href="#highscore">
             Highscores
         </button>
         <div id="timerDisplay"> 
@@ -19,8 +19,7 @@
         </div>
     </header>  
 
-   <div id="root">
-  
+   <div id="root" class="flex">
         <section id="home">
           <h1> 
             Welcome.
@@ -47,26 +46,26 @@
             Start Playing 
           </button>
         </section>
-    </div>
+   </div>
 
+  <div id="score-card" class="flex">
 
-  <div id="score-card">
-    <section id='highscoreTable'>
       <h2> 
         Highscores  
       </h2>
-    </section>
+
     <section id="save">
       <ol id="score-list"></ol>
     </section>
+
+    <button id="reset-scores">
+        Reset Scores
+    </button>
+
   </div>
     <script src="./Assets/js/renderFunctions.js"></script>
 </body>
 </html>
-
-<!-- //empty, to be filled
-// Question for Aristo: would you make the points into a separate function?
-// or attempt to combine them since they interconnect
 
 <!--
        <button id="add-node-btn">click me</button>
@@ -90,11 +89,3 @@
 -->   
 
 
- <!--   <div id="question-view"> 
-        <section id="question">
-        </section>
-        <section id="option">
-        </section>
-      </div>
-  </div>
--->

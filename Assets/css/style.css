@@ -5,13 +5,15 @@
     box-sizing: border-box;
     text-shadow: 2px 2px 4px rgba(3, 2, 4, 0.5);
 }
+
+ol {
+    font-size: 18px;
+    line-height: 160%;
+}
 :root {
     --yellow: rgba(46, 11, 95, 0.457);
 }
 
-.hide {
-    display: none;
-}
 body {
      /* linear-gradient(0.5turn,hsl(287, 100%, 2%), hsl(261, 59%, 39%),hsl(291, 8%, 54%), rgb(161, 161, 182),rgb(54, 54, 106), rgba(97, 162, 211, 0.763)  ); */
     color: white;
@@ -39,7 +41,6 @@ body {
           200px, rgba(97, 162, 211, 0.763) 250px, rgba(160, 74, 221, 0.5) 300px, rgba(238, 130, 238, 0.5) 350px, rgba(10, 3, 22, 0.5) 370px);
   }
 
-
 header {
     padding: 20px;
     background-color: var(--yellow);
@@ -51,28 +52,17 @@ header {
     color: white;
 }
 
-#root {
+.flex {
     display: flex;
     justify-content: center;
     align-items: center;
     font: 20px;
 }
-#flex {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
-}
-
-#highscoreTable {
-    padding-left: 100px;
-    display: inline-flex;
-}
 
 #highscoreButton {
-    font-size:30px;
+    font-size:25px;
     padding: 2%;
-    border-radius: 20px;
+    border-radius: 18px;
 }
 
 button:hover {
