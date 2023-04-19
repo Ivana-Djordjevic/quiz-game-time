@@ -87,13 +87,15 @@ function endGame(){
         localStorage.removeItem('high-scores')
         loadScores()
     })
+// #region
+    // const playAgainButton = document.createElement('button');
+    // playAgainButton.setAttribute('id', 'play-again-button');
+    // playAgainButton.innerText = 'Click here to go back to the main page & play again'; 
 
-    const playAgainButton = document.createElement('button');
-    playAgainButton.setAttribute('id', 'play-again-button');
-    playAgainButton.innerText = 'Click here to go back to the main page'; 
+    // scoreSection.appendChild(playAgainButton);
 
-    playAgainButton.addEventListener('click', location.reload);         // cannot invoke the function here otherwise, it will run outside the button and refresh the page on its own .: must remove the parenthesis 
-
+    // playAgainButton.addEventListener('click', location.reload);         // cannot invoke the function here otherwise, it will run outside the button and refresh the page on its own .: must remove the parenthesis 
+// #endregion
     const questionSection = document.getElementById('question-view');    
 
     rootSection.replaceChild(scoreSection, questionSection);
@@ -152,7 +154,6 @@ function addOptionElement (optionsSection, index, i) {
     const optionsEl = document.createElement('button');                 // tunrs all optionsEl into a button
     optionsEl.setAttribute('data-index', i)                             // could not reach = questions[index].options[i] because [index]*2 in the same line does not work, needed to denotate them individually 
       
-      // optionsSection.innerHTML = ''                                  // create a space to hold string, was removed
       optionsEl.innerText = questions[index].options[i];                // fills the string, with button-anted answers
       optionsSection.appendChild(optionsEl);                            // attaches the button-ated options to the optionsSection template
   
@@ -165,22 +166,21 @@ function proceedNext () {
     const questionSection = document.getElementById('question-view');
     questionSection.innerHTML= '';
 
-    const optionsSection = document.createElement('section'); // part of template
+    const optionsSection = document.createElement('section');           // part of template
     optionsSection.setAttribute('id', 'options-space');
 
-    const questionEl = document.createElement('h3');        //assigning a question the <h3> status
+    const questionEl = document.createElement('h3');                    //assigning a question the <h3> status
 
-    questionSection.appendChild(questionEl);                 // arrange to form a whole template
+    questionSection.appendChild(questionEl);                            // arrange to form a whole template
     questionSection.appendChild(optionsSection);     
 
-    const questionConfig = questions[index];                 // reaches into questions main variable 
-    const questionOptions = questionConfig.options;         // reaches in the 'options' subcategory of the main variable
+    const questionConfig = questions[index];                            // reaches into questions main variable 
+    const questionOptions = questionConfig.options;                     // reaches in the 'options' subcategory of the main variable
 
-    // questionSection.innerHTML = '' ;                     // creating space to hold a string 
-    questionEl.innerText = questionConfig.question;        // fills string above with a question (the loop will increment them)
+    questionEl.innerText = questionConfig.question;                     // fills string with question (the loop will increment them)
 
-    for (let i = 0; i < questionOptions.length; i++) {      // goes through all possible answers
-        addOptionElement(optionsSection, index, i)          // function that will apply to all the answers
+    for (let i = 0; i < questionOptions.length; i++) {                  // goes through all possible answers
+        addOptionElement(optionsSection, index, i)                      // function that will apply to all the answers
     }                                                       
     return questionSection;
 }
@@ -247,9 +247,12 @@ function handleSaveHighscore(amountOfPoints) {
 }
 
 function loadScores(){
+
     var currentScores = JSON.parse(localStorage.getItem('high-scores'));
     var scoreList = document.getElementById('score-list');
+
     scoreList.innerHTML = '';
+
     if(currentScores === null){
         return;
     }
