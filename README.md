@@ -2,25 +2,26 @@
 
 ## Description
 
-- The goal is the following:
+The goal is the following:
 
-"User Story
-       AS A coding boot camp student
-       I WANT to take a timed quiz on JavaScript fundamentals that stores high scores  
-       SO THAT I can gauge my progress compared to my peers
+**
+User Story
+- AS A coding boot camp student
+- I WANT to take a timed quiz on JavaScript fundamentals that stores high scores  
+- SO THAT I can gauge my progress compared to my peers
 
 Acceptance Criteria
-       GIVEN I am taking a code quiz
-       WHEN I click the start button
-       THEN a timer starts and I am presented with a question
-       WHEN I answer a question
-       THEN I am presented with another question
-       WHEN I answer a question incorrectly
-       THEN time is subtracted from the clock
-       WHEN all questions are answered or the timer reaches 0
-       THEN the game is over
-       WHEN the game is over
-       THEN I can save my initials and my score"**
+- GIVEN I am taking a code quiz
+- WHEN I click the start button
+- THEN a timer starts and I am presented with a question
+- WHEN I answer a question
+- THEN I am presented with another question
+- WHEN I answer a question incorrectly
+- THEN time is subtracted from the clock
+- WHEN all questions are answered or the timer reaches 0
+- THEN the game is over
+- WHEN the game is over
+- THEN I can save my initials and my score**
 
 While I have met the requirements for this project, I believe that there is still room for optimization in certain areas ie:
 
@@ -34,6 +35,10 @@ While I have met the requirements for this project, I believe that there is stil
 - the feedback message should also display in block, not inline with the possible answers. it should appear below
 
 The images below will disaply what the quiz looks like:
+
+![intro page](https://user-images.githubusercontent.com/127266659/233449285-e5c2d996-dab0-463d-96b0-8b9035efdf28.jpg)
+![question view](https://user-images.githubusercontent.com/127266659/233449294-08db7ec0-af75-41fb-801c-554c16a83509.jpg)
+![results view](https://user-images.githubusercontent.com/127266659/233449298-47b2cf24-d809-4ca1-9130-0ad03cbf289e.jpg)
 
 Here is the link: https://runningaroundintheabyss.github.io/quiz-game-time/
 
