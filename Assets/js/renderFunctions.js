@@ -39,15 +39,15 @@ let timeLeft = 3000;
 
 let index = 0;
 
-const rootSection = document.getElementById('root');                        // parent node
-const homeSection = document.getElementById('home');                        // child node
+const rootSection = document.getElementById('root');                        
+const homeSection = document.getElementById('home');                        
 
 function endGame(){     
                                        
     clearInterval(timerInterval); 
                         
     const scoreSection = document.createElement('section');
-    scoreSection.setAttribute ('id', 'score-view');                          //Child node
+    scoreSection.setAttribute ('id', 'score-view');                         
 
     const gameOverMessage = document.createElement('h4');
     gameOverMessage.setAttribute ('id', 'game-over');
@@ -57,7 +57,7 @@ function endGame(){
 
     const userScoreDisplay = document.createElement('p');
     userScoreDisplay.setAttribute ('id', 'recent-score');
-    userScoreDisplay.innerText = 'Your score is ' + amountOfPoints;          // userscore is a placeholder until we figure out the localstorage stuff
+    userScoreDisplay.innerText = 'Your score is ' + amountOfPoints;          
 
     scoreSection.appendChild(userScoreDisplay);
 
@@ -81,7 +81,7 @@ function endGame(){
         event.preventDefault();
         handleSaveHighscore(amountOfPoints);
     });
-//        feedbackSection.remove(feedback);  
+
     loadScores()
     document.getElementById('reset-scores').addEventListener('click', function(event){
         localStorage.removeItem('high-scores')
@@ -101,63 +101,62 @@ function endGame(){
     rootSection.replaceChild(scoreSection, questionSection);
 
     return amountOfPoints;
-
 }
 
 // countdown timer
-function updateTimer() {                                                // keeps the seconds moving
-    const n = (timeLeft/100).toFixed(2);                                // setting the decimal point, _ _._ _ seconds
-    timeLeft--;                                                         // increments down the assigned seconds by 1
-    timer.innerText = n + ' seconds remaining';                         // displays output of this function 
+function updateTimer() {                                                
+    const n = (timeLeft/100).toFixed(2);                                
+    timeLeft--;                                                         
+    timer.innerText = n + ' seconds remaining';                         
 
-  if (timeLeft <= 0) {                                                  // make it conditional so it doesn't go in the negatives
+  if (timeLeft <= 0) {                                                  
     timer.innerText = 0 + ' seconds remaining'; 
-    endGame();                                                          // replaces question card with score card    
+    endGame();                                                           
   }
 }
 
 //start timer
-function startTimer() {                                                 // starts the timer
-  timerInterval = setInterval(updateTimer, 10);                         // by using '10' the countdown will display the miliseconds too 
+function startTimer() {                                                
+  timerInterval = setInterval(updateTimer, 10);                         
 }
 
 // central grader
-function checkquestion(event) {                                         // data processor: grades the answers. assigns points and deducts time given incorrectness of answer 
+function checkquestion(event) {                                         
                                                              
-    const clickedButtonElement = event.target                           // when you click on an answer, this function will execute the code below
-    const selectedOptionIndex = parseInt(clickedButtonElement.getAttribute('data-index')) //gets the indices of the clicked answer
-    const correctAnswerPseudoIndex = questions[index].correctAnswer     // is the number that needs to match the selected index by the user to get a correct answer 
+    const clickedButtonElement = event.target                           
+    const selectedOptionIndex = parseInt(clickedButtonElement.getAttribute('data-index')) 
+    const correctAnswerPseudoIndex = questions[index].correctAnswer     
 
-    if ( selectedOptionIndex === correctAnswerPseudoIndex) {             //checks if their answer is correct
-        amountOfPoints = amountOfPoints + 10 ;                           // if so you get 10 points
-        displayFeedbackMessage('success');                               // user receives feedback of correct answer
+    if ( selectedOptionIndex === correctAnswerPseudoIndex) {             
+        amountOfPoints = amountOfPoints + 10 ;                           
+        displayFeedbackMessage('success');                               
     }                          
-        else {                                                           // if incorrect answer
-            amountOfPoints = amountOfPoints - 2 ;                        // you lose 2 points
-            timeLeft -= 1000;                                            // 10 seconds deducted from timer
-            displayFeedbackMessage('incorrect');                         // user receives feedback of incorrect asnwer
+        else {                                                           
+            amountOfPoints = amountOfPoints - 2 ;                        
+            timeLeft -= 1000;                                            
+            displayFeedbackMessage('incorrect');                         
             }                       
      
-    if (index === questions.length -1) {                                 // .length returns the total amount of elements, .: 5 questions, -1 because array indices start at 0
-        endGame();                                                       // replaces question card with score card 
+    if (index === questions.length -1) {                                 
+        endGame();                                                       
     } else {
-        index++;                                                         // go through index one by one
-        proceedNext();                                                   // grade each click   
+        index++;                                                        
+        proceedNext();                                                  
     } 
     
-    return amountOfPoints;                                               // total value of points earned within one quiz
+    return amountOfPoints;                                       
 }
 
 // adding dynamic properties to the answers
 function addOptionElement (optionsSection, index, i) {            
 
-    const optionsEl = document.createElement('button');                 // tunrs all optionsEl into a button
-    optionsEl.setAttribute('data-index', i)                             // could not reach = questions[index].options[i] because [index]*2 in the same line does not work, needed to denotate them individually 
+    const optionsEl = document.createElement('button');                 
+    optionsEl.setAttribute('data-index', i)                             
       
-      optionsEl.innerText = questions[index].options[i];                // fills the string, with button-anted answers
-      optionsSection.appendChild(optionsEl);                            // attaches the button-ated options to the optionsSection template
+      optionsEl.innerText = questions[index].options[i];              
+      optionsSection.appendChild(optionsEl);                           
   
-      optionsEl.addEventListener('click', checkquestion);               // adds a click event to all buttons, and directs them to the central grader
+      optionsEl.addEventListener('click', checkquestion);              
 }
 
 //sets up display for the question card 
@@ -166,21 +165,21 @@ function proceedNext () {
     const questionSection = document.getElementById('question-view');
     questionSection.innerHTML= '';
 
-    const optionsSection = document.createElement('section');           // part of template
+    const optionsSection = document.createElement('section');           
     optionsSection.setAttribute('id', 'options-space');
 
-    const questionEl = document.createElement('h3');                    //assigning a question the <h3> status
+    const questionEl = document.createElement('h3');                    
 
-    questionSection.appendChild(questionEl);                            // arrange to form a whole template
+    questionSection.appendChild(questionEl);                            
     questionSection.appendChild(optionsSection);     
 
-    const questionConfig = questions[index];                            // reaches into questions main variable 
-    const questionOptions = questionConfig.options;                     // reaches in the 'options' subcategory of the main variable
+    const questionConfig = questions[index];                            
+    const questionOptions = questionConfig.options;                     
 
-    questionEl.innerText = questionConfig.question;                     // fills string with question (the loop will increment them)
+    questionEl.innerText = questionConfig.question;                     
 
-    for (let i = 0; i < questionOptions.length; i++) {                  // goes through all possible answers
-        addOptionElement(optionsSection, index, i)                      // function that will apply to all the answers
+    for (let i = 0; i < questionOptions.length; i++) {                   
+        addOptionElement(optionsSection, index, i)                      
     }                                                       
     return questionSection;
 }
@@ -189,12 +188,12 @@ function proceedNext () {
 function displayFeedbackMessage (feedbackKey){
 
     const feedback = document.createElement('p')                 
-    feedback.setAttribute('style', 'padding-left: 10px;');             // padding so it's not glued beneath the options
+    feedback.setAttribute('style', 'padding-left: 10px;');             
     
-    feedback.innerText= feedbackOptions[feedbackKey];                  // goes through the key here, .: during the proceedNext function, you can assign which value you want 
+    feedback.innerText= feedbackOptions[feedbackKey];                  
     const feedbackSection = document.getElementById('feedback');  
     feedbackSection.innerHTML = '';
-    feedbackSection.appendChild(feedback);                             // it's below the proceedNext () .: should appear below the options
+    feedbackSection.appendChild(feedback);                             
 }
 
 // replaces home card with question card, maybe optimize later to have a replace function where you can apply both the question card and the score card if that's plausible 
@@ -230,20 +229,6 @@ function handleSaveHighscore(amountOfPoints) {
         initials: initialsInput,
         score: amountOfPoints,
     })
-
-    // #region
-    // function saveHighscore() {
-
-    //     const inputBox = document.createElement('input');
-
-    //     inputBox.addEventListener('keypress', function(event) {  //display function potential wip, maybe? so it displays the score and initals 
-    //         if (event.key === 'Enter') {
-    //             event.preventDefault();
-    //             document.getElementById('submit-button').click();
-    //         }
-    //     })     // to grab user initals 
-    // } 
-    // #endregion
 }
 
 function loadScores(){

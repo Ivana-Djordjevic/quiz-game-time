@@ -22,26 +22,18 @@ Acceptance Criteria
        WHEN the game is over
        THEN I can save my initials and my score"**
 
-I have met the the criterias, however there is still much work that needs to be if this were for a real client: bugs in the JS, and inconsiscent CSS. Also, content wise, i would expect more questions, because no one can challenge themselves enough to want a highscore with only 5 questions.
+While I have met the requirements for this project, I believe that there is still room for optimization in certain areas ie:
 
-Javascript issues: 
-1- need to either remove the feedback child node or add a conditional statement to it, so it disappears when the game ends
-2- need to add addtional properties to the input bar so it includes the placeholder and the user doesn't have to wonder what to type in, adding it after the naming its id was not fruitful
-3- need to add a functional 'play again button' so the user does have to disconnect from play mode and refresh the page themselves. In addition to that, the CSS of it would need to appear below the input box & submit button, with a top margin so it's not glued to one another.
-4- highscore section the bug: only displays the initials and score if you submit it twice. also in most games high scores are listed in descending order, so the user does not have look for their highest score, it currrently looks likes word vomit and displays the scores in the order in which they were earned. so it needs an additional functino to monitor that
+- need to either remove the feedback child node or add a conditional statement to it, so it disappears when the game ends
+- need to add addtional properties to the input bar so it includes the placeholder and the user doesn't have to wonder what to type in, adding it after the naming its id was not fruitful
+- need to add a functional 'play again button' so the user does not have to disconnect from play mode and refresh the page themselves. In addition to that, the CSS of it would need to appear below the input box & submit button, with a top margin so it's not glued to one another.
+- highscore section bug: only displays the initials and score if you submit it twice. also in most games high scores are listed in descending order, so the user does not have look for their highest score, it currrently looks likes word vomit and displays the scores in the order in which they were earned. so it needs an additional functino to monitor that
+- highscores should be to the right of the screen, but below the root id 
+- the question font-size is too small
+- the possible answers should be in block display for more consistency (aka, i could easily select the third answer, and click away in less than a second. they also need line height so they're not glued together
+- the feedback message should also display in block, not inline with the possible answers. it should appear below
 
-CSS issues:
-1- highscores should be to the right of the screen, but below the root id 
-2- the score themselves should be below the "Highscores" heading, which they are not, alhough it is stylistic, the would be done in JS i believe
-2- the button for the "Reset Scores" and the questions do match the style, unless they're being hovered over
-3- the question font-size is too small
-4- the possible answers should be in block display for more consistency (aka, i could easily select the third answer, and click away in less than a second. they also need line height so they're not glued together
-5- the feedback message should also display in block, not inline with the possible answers. it should appear below
-
-The images below will illustrate the aforementioned issues:
-![screenshot of a webpage that explains the rule of a game and has start button](intro.jpg)
-![the question view: questions at top with answers all in one line below](questionDisplay.jpg)
-![the score view: displays the user score in a unorganized way](scoreDisplay.jpg)
+The images below will disaply what the quiz looks like:
 
 Here is the link: https://runningaroundintheabyss.github.io/quiz-game-time/
 
@@ -51,7 +43,7 @@ N/A
 
 ## Usage
 
-A quiz to pass your time. Given its issues, it would not be a pleasing user experience.
+A quiz to pass your time. 
 
 ## Credits
 

@@ -10,9 +10,6 @@ ol {
     font-size: 18px;
     line-height: 160%;
 }
-:root {
-    --yellow: rgba(46, 11, 95, 0.457);
-}
 
 body {
      /* linear-gradient(0.5turn,hsl(287, 100%, 2%), hsl(261, 59%, 39%),hsl(291, 8%, 54%), rgb(161, 161, 182),rgb(54, 54, 106), rgba(97, 162, 211, 0.763)  ); */
@@ -43,20 +40,37 @@ body {
 
 header {
     padding: 20px;
-    background-color: var(--yellow);
+    background-color: rgba(184, 171, 209, 0.271);
     color: black;
     display: flex;
     flex-wrap: wrap; 
     justify-content: space-between;
     align-items: center;
     color: white;
+    font-size: 50px;
 }
 
+#column {
+    flex-direction: column;
+  
+}
 #score-card {
-    /* display: flex; */
-    /* flex-direction: column; */
+    display: flex;
+    flex-direction: column;
     /* align-items: center;
     justify-content: center; */
+}
+
+#score {
+    display: inline-flex;
+}
+
+#reset-scores {
+    font-size: 15px;
+    padding: 1%;
+    border-radius: 18px;
+    color: hwb(295 7% 67%);
+    margin-top: 20px;
 }
 
 .flex {
@@ -66,11 +80,17 @@ header {
     font: 20px;
 }
 
-#highscoreButton {
+a {
+    text-decoration: none;
+    color: hsl(287, 100%, 2%)  30px;
+}
+
+/* #highscoreButton {
     font-size:25px;
     padding: 2%;
     border-radius: 18px;
-}
+    color: hwb(295 7% 67%);
+} */
 
 button:hover {
     background:#ffffff;
