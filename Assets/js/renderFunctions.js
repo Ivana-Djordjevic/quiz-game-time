@@ -150,13 +150,14 @@ function checkquestion(event) {
 // adding dynamic properties to the answers
 function addOptionElement (optionsSection, index, i) {            
 
-    const optionsEl = document.createElement('button');                 
-    optionsEl.setAttribute('data-index', i)                             
-      
-      optionsEl.innerText = questions[index].options[i];              
-      optionsSection.appendChild(optionsEl);                           
+    const optionsEl = document.createElement('button');
+    optionsEl.setAttribute('data-index', i)  
+    optionsEl.setAttribute('id', 'options-box')                
+                           
+    optionsEl.innerText = questions[index].options[i];              
+    optionsSection.appendChild(optionsEl);                           
   
-      optionsEl.addEventListener('click', checkquestion);              
+    optionsEl.addEventListener('click', checkquestion);              
 }
 
 //sets up display for the question card 

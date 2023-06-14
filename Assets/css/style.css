@@ -7,36 +7,44 @@
 }
 
 ol {
-    font-size: 18px;
+    font-size: 22px;
     line-height: 160%;
 }
 
 body {
-     /* linear-gradient(0.5turn,hsl(287, 100%, 2%), hsl(261, 59%, 39%),hsl(291, 8%, 54%), rgb(161, 161, 182),rgb(54, 54, 106), rgba(97, 162, 211, 0.763)  ); */
     color: white;
-    background: repeating-linear-gradient(
-        190deg,
-        hsl(287, 100%, 2%) 40px,
-        hsl(261, 59%, 39%) 80px,
-        hsl(291, 8%, 54%) 120px,
-        rgb(161, 161, 182) 160px,
-        rgba(97, 162, 211, 0.763) 200px,
-        rgba(160, 74, 221, 0.5) 240px,
-        rgba(238, 130, 238, 0.5) 280px,
-        rgba(10, 3, 22, 0.5) 300px
+    background: 
+        repeating-linear-gradient(
+            190deg,
+                hsl(287, 100%, 2%) 40px,
+                hsl(261, 59%, 39%) 80px,
+                hsl(291, 8%, 54%) 120px,
+                rgb(161, 161, 182) 160px,
+                rgba(97, 162, 211, 0.763) 200px,
+                rgba(160, 74, 221, 0.5) 240px,
+                rgba(238, 130, 238, 0.5) 280px,
+                rgba(10, 3, 22, 0.5) 300px
       ), repeating-linear-gradient(
-        -190deg,
-        hsl(287, 100%, 2%)  30px,
-        hsl(261, 59%, 39%) 60px,
-        hsl(291, 8%, 54%) 90px,
-        rgb(161, 161, 182) 120px,
-        rgba(97, 162, 211, 0.763) 150px,
-        rgba(160, 74, 221, 0.5) 180px,
-        rgba(238, 130, 238, 0.5) 210px,
-        rgba(10, 3, 22, 0.5) 230px
-      ), repeating-linear-gradient(23deg, hsl(287, 100%, 2%) 50px,  hsl(261, 59%, 39%) 100px,  hsl(291, 8%, 54%) 150px,  rgb(161, 161, 182)
-          200px, rgba(97, 162, 211, 0.763) 250px, rgba(160, 74, 221, 0.5) 300px, rgba(238, 130, 238, 0.5) 350px, rgba(10, 3, 22, 0.5) 370px);
-  }
+            -190deg,
+                hsl(287, 100%, 2%)  30px,
+                hsl(261, 59%, 39%) 60px,
+                hsl(291, 8%, 54%) 90px,
+                rgb(161, 161, 182) 120px,
+                rgba(97, 162, 211, 0.763) 150px,
+                rgba(160, 74, 221, 0.5) 180px,
+                rgba(238, 130, 238, 0.5) 210px,
+            rgba(10, 3, 22, 0.5) 230px
+      ), repeating-linear-gradient(
+            23deg, 
+                hsl(287, 100%, 2%) 50px,  
+                hsl(261, 59%, 39%) 100px,  
+                hsl(291, 8%, 54%) 150px,  
+                rgb(161, 161, 182)200px, 
+                rgba(97, 162, 211, 0.763) 250px, 
+                rgba(160, 74, 221, 0.5) 300px, 
+                rgba(238, 130, 238, 0.5) 350px, 
+                rgba(10, 3, 22, 0.5) 370px);
+}
 
 header {
     padding: 20px;
@@ -47,18 +55,41 @@ header {
     justify-content: space-between;
     align-items: center;
     color: white;
-    font-size: 50px;
+    font-size: 60px;
+}
+
+#grid-container {
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    column-gap: 100px;
+} 
+
+#root {
+    grid-column-start: 3;
 }
 
 #column {
     flex-direction: column;
-  
 }
+
+#question-view {
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 20px;
+    border-color: rgba(184, 171, 209, 0.5);
+    padding: 0px 20px 20px 20px;
+}
+
+#options-space {
+    border-width: 5px;
+}
+ 
+#options-box {
+    width: 100px;
+}
+
 #score-card {
-    display: flex;
-    flex-direction: column;
-    /* align-items: center;
-    justify-content: center; */
+    grid-column-end: 5;
 }
 
 #score {
@@ -66,7 +97,7 @@ header {
 }
 
 #reset-scores {
-    font-size: 15px;
+    font-size: 22px;
     padding: 1%;
     border-radius: 18px;
     color: hwb(295 7% 67%);
@@ -77,7 +108,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    font: 20px;
+    flex-direction: column;
 }
 
 a {
@@ -85,18 +116,10 @@ a {
     color: hsl(287, 100%, 2%)  30px;
 }
 
-/* #highscoreButton {
-    font-size:25px;
-    padding: 2%;
-    border-radius: 18px;
-    color: hwb(295 7% 67%);
-} */
-
 button:hover {
     background:#ffffff;
     color: hwb(295 7% 67%);
     transition: background-color 0.5s ease;
-    font-size: 20px;
     box-shadow: 2px 2px 4px grey;
     text-decoration: blink;
     padding: 5px;
@@ -105,5 +128,23 @@ button:hover {
     border-radius: 20px;
 }
     
-@media screen and (max-width: 992px) {body}
- 
+@media screen and (max-width: 992px) {
+
+        body {
+            /* background: grey; */
+        }
+
+        ol {
+            font-size: 25px;
+        }
+        
+        #root {
+            grid-column-start: 1;
+            grid-column-end: 7;
+        }
+
+        #score-card {
+            grid-column-end: 4;
+        }
+
+    }
