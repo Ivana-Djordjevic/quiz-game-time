@@ -25,14 +25,13 @@ Acceptance Criteria
 
 While I have met the requirements for this project, I believe that there is still room for optimization in certain areas ie:
 
-- need to either remove the feedback child node or add a conditional statement to it, so it disappears when the game ends
 - need to add addtional properties to the input bar so it includes the placeholder and the user doesn't have to wonder what to type in, adding it after the naming its id was not fruitful
+
 - need to add a functional 'play again button' so the user does not have to disconnect from play mode and refresh the page themselves. In addition to that, the CSS of it would need to appear below the input box & submit button, with a top margin so it's not glued to one another.
+
 - highscore section bug: only displays the initials and score if you submit it twice. also in most games high scores are listed in descending order, so the user does not have look for their highest score, it currrently looks likes word vomit and displays the scores in the order in which they were earned. so it needs an additional functino to monitor that
-- highscores should be to the right of the screen, but below the root id 
+
 - the question font-size is too small
-- the possible answers should be in block display for more consistency (aka, i could easily select the third answer, and click away in less than a second. they also need line height so they're not glued together
-- the feedback message should also display in block, not inline with the possible answers. it should appear below
 
 The images below will disaply what the quiz looks like:
 

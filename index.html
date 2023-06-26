@@ -16,15 +16,15 @@
             <a href="#highscore">Highscores</a>
         </button> -->
         <div id="timerDisplay"> 
-            <p>  seconds remaining</p>
+            <h1>  seconds remaining</h1>
         </div>
     </header>  
   <main id="grid-container">
     <div id="root" class="flex" class="borders">
         <section id="home">
-          <h1> 
+          <h2> 
             If you like giving yourself anxiety, this is the game for you.
-          </h1>
+          </h2>
           <ol>The rules are simple: 
             <li> 
               In the span of 30 seconds your goal is to get as many correct answers as possible. 
@@ -42,17 +42,19 @@
               You can play as many times as you'd like, your highscores will be saved.
             </li>
           </ol>
-          <button id="start-button"> 
-            Start Playing 
-          </button>
+          <div id="start">
+            <button id="start-button"> 
+              Start Playing 
+            </button>
+        </div>
         </section>
     </div>
 
     <div id="score-card" class="flex" class="borders">
       <div id="highscore">
-        <h2> 
+        <h3> 
         Highscores  
-        </h2>
+        </h3>
       </div>
     <section id="save">
       <ol id="score-list"></ol>
