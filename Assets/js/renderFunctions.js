@@ -43,7 +43,9 @@ const rootSection = document.getElementById('root');
 const homeSection = document.getElementById('home');                        
 
 function endGame(){     
-                                       
+                         
+    document.getElementById('feedback').innerHTML='';
+    
     clearInterval(timerInterval); 
                         
     const scoreSection = document.createElement('section');
@@ -62,13 +64,13 @@ function endGame(){
     scoreSection.appendChild(userScoreDisplay);
 
     const inputBox = document.createElement('input');
-    inputBox.setAttribute('id', 'initials-box', 'placeholder', 'Enter your initals here');
-//    document.getElementById('initals-box').placeholder = 'Enter your initals here';
+    inputBox.setAttribute('id', 'initials-box');
+    inputBox.setAttribute('placeholder', 'Enter your initals here');
     inputBox.addEventListener('keypress', function(event){
     if (event.key === 'Enter'){
         handleSaveHighscore(amountOfPoints)
     }
-})
+    })
     scoreSection.appendChild(inputBox);
 
     const submitButton = document.createElement('button');
@@ -82,7 +84,7 @@ function endGame(){
         handleSaveHighscore(amountOfPoints);
     });
 
-    loadScores()
+    loadScores();
     document.getElementById('reset-scores').addEventListener('click', function(event){
         localStorage.removeItem('high-scores')
         loadScores()
@@ -189,7 +191,7 @@ function proceedNext () {
 function displayFeedbackMessage (feedbackKey){
 
     const feedback = document.createElement('p')                 
-    feedback.setAttribute('style', 'padding-left: 10px;');             
+    feedback.setAttribute('style', 'position:absolute; left:20%;');             
     
     feedback.innerText= feedbackOptions[feedbackKey];                  
     const feedbackSection = document.getElementById('feedback');  
@@ -234,8 +236,8 @@ function handleSaveHighscore(amountOfPoints) {
 
 function loadScores(){
 
-    var currentScores = JSON.parse(localStorage.getItem('high-scores'));
-    var scoreList = document.getElementById('score-list');
+    const currentScores = JSON.parse(localStorage.getItem('high-scores'));
+    const scoreList = document.getElementById('score-list');
 
     scoreList.innerHTML = '';
 
@@ -244,22 +246,31 @@ function loadScores(){
     }
 
     currentScores.forEach(element => {
-        var newListItem = document.createElement('li')
+        const newListItem = document.createElement('li')
         newListItem.textContent =`${element.initials} : ${element.score}`;
         scoreList.append(newListItem);
     });
 }
 
+let submitScore = false;
+
 function saveToStorage(newScore){
 
-    var currentScores = JSON.parse(localStorage.getItem('high-scores'));
+    let currentScores = JSON.parse(localStorage.getItem('high-scores'));
 
     if(!currentScores){
-        localStorage.setItem('high-scores', JSON.stringify([newScore]))
-        return;
+        currentScores =[];
+        // localStorage.setItem('high-scores', JSON.stringify([newScore]))
+        // loadScores();
+        // return;
     }
 
-    currentScores.push(newScore);
-    localStorage.setItem('high-scores', JSON.stringify(currentScores));
-    loadScores();
+    if(!submitScore){
+        currentScores.push(newScore);
+        localStorage.setItem('high-scores', JSON.stringify(currentScores));
+        submitScore = true;
+        loadScores(); 
+    }
 }
+
+loadScores();

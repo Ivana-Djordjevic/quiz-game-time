@@ -4,6 +4,7 @@
     font-family: 'Dosis', sans-serif ;
     box-sizing: border-box;
     text-shadow: 2px 2px 4px rgba(3, 2, 4, 0.5);
+    /* font-size: large; */
 }
 
 ol {
@@ -11,11 +12,12 @@ ol {
     line-height: 160%;
 }
 
-h3, h4, p {
+h3, h4, p, ol, li {
     font-size: 22px;
 }
 
 body {
+    height: 100vh;
     color: white;
     background: 
         repeating-linear-gradient(
@@ -87,20 +89,22 @@ header {
     border-color: rgba(184, 171, 209, 0.5);
     padding: 0px 20px 20px 20px;
     font-size: 22px;
+    width: 500px;
+    text-align: center;
 }
 
 #options-space {
+    display: flex;
     border-width: 5px;
-    /* flex-direction: column; */
+    flex-direction: row;
     column-count: 4;
+    text-align: center;
+    justify-content: center;
 }
  
 #options-box {
     width: 100px;
     font-size: 22px;
-    /* align-items: center;
-    text-align: center;
-    justify-content: center; */
 }
 
 #score-card {
@@ -115,7 +119,7 @@ header {
 }
 #reset-scores {
     font-size: 22px;
-    padding: 1%;
+    padding: 10px;
     border-radius: 18px;
     color: hwb(295 7% 67%);
     margin-top: 20px;
@@ -123,7 +127,6 @@ header {
 
 .flex {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
 }
@@ -147,8 +150,10 @@ button:hover {
     
 @media screen and (max-width: 992px) {
 
-        body {
-            /* background: grey; */
+        #grid-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         ol {
@@ -162,6 +167,7 @@ button:hover {
 
         #score-card {
             grid-column-end: 4;
+            margin-top: 25%;
         }
 
     }
