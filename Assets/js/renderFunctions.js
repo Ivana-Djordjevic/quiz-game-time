@@ -42,14 +42,36 @@ let index = 0;
 const rootSection = document.getElementById('root');                        
 const homeSection = document.getElementById('home');                        
 
+function playAgain() {
+
+    const playAgainSection = document.getElementById('play-again-card');
+    playAgainSection.innerHTML = '';
+
+    const playAgainButtonEl = document.createElement('button');
+    playAgainButtonEl.setAttribute("style", "font-size: 30px; border-radius: 20px; padding: 10px; " );
+    playAgainButtonEl.innerText = 'Play Again';
+
+    playAgainSection.appendChild(playAgainButtonEl);
+    
+    playAgainButtonEl.addEventListener('click', function(){  
+        timeLeft = 3000; 
+        index = 0;        
+        startTimer();    
+        replaceScoreSection();
+        proceedNext();   
+    });
+}
+
+const scoreSection = document.createElement('section');
+scoreSection.setAttribute ('id', 'score-view'); 
+
 function endGame(){     
                          
     document.getElementById('feedback').innerHTML='';
     
     clearInterval(timerInterval); 
                         
-    const scoreSection = document.createElement('section');
-    scoreSection.setAttribute ('id', 'score-view');                         
+    scoreSection.innerHTML = ''                    
 
     const gameOverMessage = document.createElement('h4');
     gameOverMessage.setAttribute ('id', 'game-over');
@@ -89,20 +111,17 @@ function endGame(){
         localStorage.removeItem('high-scores')
         loadScores()
     })
-// #region
-    // const playAgainButton = document.createElement('button');
-    // playAgainButton.setAttribute('id', 'play-again-button');
-    // playAgainButton.innerText = 'Click here to go back to the main page & play again'; 
 
-    // scoreSection.appendChild(playAgainButton);
-
-    // playAgainButton.addEventListener('click', location.reload);         // cannot invoke the function here otherwise, it will run outside the button and refresh the page on its own .: must remove the parenthesis 
-// #endregion
-    const questionSection = document.getElementById('question-view');    
+    playAgain();
 
     rootSection.replaceChild(scoreSection, questionSection);
 
     return amountOfPoints;
+}
+
+function replaceScoreSection() {
+
+    rootSection.replaceChild(questionSection, scoreSection);
 }
 
 // countdown timer
@@ -199,11 +218,11 @@ function displayFeedbackMessage (feedbackKey){
     feedbackSection.appendChild(feedback);                             
 }
 
+const questionSection = document.createElement('section');          
+questionSection.setAttribute('id', 'question-view');
+
 // replaces home card with question card, maybe optimize later to have a replace function where you can apply both the question card and the score card if that's plausible 
 function replaceHomeSection() {
-
-    const questionSection = document.createElement('section');          
-    questionSection.setAttribute('id', 'question-view')
 
     const feedbackSection = document.createElement('section')
     feedbackSection.setAttribute('id', 'feedback')
@@ -260,9 +279,6 @@ function saveToStorage(newScore){
 
     if(!currentScores){
         currentScores =[];
-        // localStorage.setItem('high-scores', JSON.stringify([newScore]))
-        // loadScores();
-        // return;
     }
 
     if(!submitScore){

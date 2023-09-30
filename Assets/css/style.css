@@ -4,11 +4,9 @@
     font-family: 'Dosis', sans-serif ;
     box-sizing: border-box;
     text-shadow: 2px 2px 4px rgba(3, 2, 4, 0.5);
-    /* font-size: large; */
 }
 
 ol {
-    /* font-size: 22px; */
     line-height: 160%;
 }
 
@@ -114,15 +112,21 @@ header {
 #score {
     display: inline-flex;
 }
+
 #highscore {
     text-align: center;
 }
+
 #reset-scores {
     font-size: 22px;
     padding: 10px;
     border-radius: 18px;
     color: hwb(295 7% 67%);
     margin-top: 20px;
+}
+
+#play-again-card {
+    justify-content: center;
 }
 
 .flex {
@@ -150,6 +154,15 @@ button:hover {
     
 @media screen and (max-width: 992px) {
 
+        header, 
+        h1 {
+            font-size: 40px;
+        }
+
+        #timerDisplay {
+            font-size: 40px;
+        }
+
         #grid-container {
             display: flex;
             flex-direction: column;
@@ -168,6 +181,10 @@ button:hover {
         #score-card {
             grid-column-end: 4;
             margin-top: 25%;
+        }
+
+        #play-again-card {
+            margin-top: 8%;
         }
 
     }
