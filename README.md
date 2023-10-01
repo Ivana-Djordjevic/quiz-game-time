@@ -23,15 +23,12 @@ Acceptance Criteria
 - WHEN the game is over
 - THEN I can save my initials and my score**
 
-While I have met the requirements for this project, I believe that there is still room for optimization in certain areas ie:
-
-- need to add a functional 'play again button' so the user does not have to disconnect from play mode and refresh the page themselves. In addition to that, the CSS of it would need to appear below the input box & submit button, with a top margin so it's not glued to one another.
-
 The images below will disaply what the quiz looks like:
 
 ![intro page](https://user-images.githubusercontent.com/127266659/233449285-e5c2d996-dab0-463d-96b0-8b9035efdf28.jpg)
-![question view](https://user-images.githubusercontent.com/127266659/233449294-08db7ec0-af75-41fb-801c-554c16a83509.jpg)
-![results view](https://user-images.githubusercontent.com/127266659/233449298-47b2cf24-d809-4ca1-9130-0ad03cbf289e.jpg)
+<img width="1017" alt="question view" src="https://github.com/runningaroundintheabyss/quiz-game-time/assets/127266659/5587ec67-d127-4fd1-bf97-ac7c67374fa7">
+<img width="1020" alt="score view" src="https://github.com/runningaroundintheabyss/quiz-game-time/assets/127266659/65a6a199-d2f7-4317-a297-fdf23e8c7b7b">
+
 
 Here is the link: https://runningaroundintheabyss.github.io/quiz-game-time/
 
