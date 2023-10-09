@@ -23,10 +23,6 @@ Acceptance Criteria
 - WHEN the game is over
 - THEN I can save my initials and my score**
 
-While I have met the requirements for this project, I believe there is still room for improvements ie:
-
-- <u>code optimization:</u> add function to arrange the highscores in descending order, it is currently being displayed in the order the scores were received.
-
 The images below will disaply what the quiz looks like:
 
 ![intro page](https://user-images.githubusercontent.com/127266659/233449285-e5c2d996-dab0-463d-96b0-8b9035efdf28.jpg)

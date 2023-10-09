@@ -27,20 +27,25 @@ const feedbackOptions = {
     incorrect:'Incorrect Answer, -10 seconds o_0',
 }
 
-let amountOfPoints = 0;
-
 const startButton = document.getElementById('start-button');
 const timer = document.getElementById('timerDisplay');
 
 startButton.setAttribute("style", "font-size: 30px; border-radius: 20px; padding: 10px; " );
 timer.setAttribute("style", "font-size: 30px; text-shadow: 2px 2px 4px rgba(3, 2, 5, 0.5);" );
 
+let amountOfPoints = 0;
 let timeLeft = 3000;
-
 let index = 0;
+let submitScore = false;
 
 const rootSection = document.getElementById('root');                        
-const homeSection = document.getElementById('home');                        
+const homeSection = document.getElementById('home');      
+
+const scoreSection = document.createElement('section');
+scoreSection.setAttribute ('id', 'score-view');      
+
+const questionSection = document.createElement('section');          
+questionSection.setAttribute('id', 'question-view');
 
 function playAgain() {
 
@@ -55,15 +60,14 @@ function playAgain() {
     
     playAgainButtonEl.addEventListener('click', function(){  
         timeLeft = 3000; 
-        index = 0;        
+        index = 0;    
+        amountOfPoints = 0; 
+        submitScore = false;   
         startTimer();    
         replaceScoreSection();
         proceedNext();   
     });
 }
-
-const scoreSection = document.createElement('section');
-scoreSection.setAttribute ('id', 'score-view'); 
 
 function endGame(){     
                          
@@ -103,15 +107,11 @@ function endGame(){
 
     submitButton.addEventListener('click', function(event){
         event.preventDefault();
+        console.log('hello')
         handleSaveHighscore(amountOfPoints);
     });
 
     loadScores();
-    document.getElementById('reset-scores').addEventListener('click', function(event){
-        localStorage.removeItem('high-scores')
-        loadScores()
-    })
-
     playAgain();
 
     rootSection.replaceChild(scoreSection, questionSection);
@@ -119,6 +119,7 @@ function endGame(){
     return amountOfPoints;
 }
 
+// helper function - assists playAgain()
 function replaceScoreSection() {
 
     rootSection.replaceChild(questionSection, scoreSection);
@@ -218,9 +219,6 @@ function displayFeedbackMessage (feedbackKey){
     feedbackSection.appendChild(feedback);                             
 }
 
-const questionSection = document.createElement('section');          
-questionSection.setAttribute('id', 'question-view');
-
 // replaces home card with question card, maybe optimize later to have a replace function where you can apply both the question card and the score card if that's plausible 
 function replaceHomeSection() {
 
@@ -232,15 +230,7 @@ function replaceHomeSection() {
     rootSection.appendChild(feedbackSection)
 }
 
-//starting up the first cascade of events
-startButton.addEventListener('click', function(){           
-    startTimer();     
-    replaceHomeSection();
-    proceedNext();   
-});
-
 function handleSaveHighscore(amountOfPoints) {
-
     const initialsInput = document.getElementById('initials-box').value.trim();
 
     if(initialsInput === ''){
@@ -264,14 +254,14 @@ function loadScores(){
         return;
     }
 
+    currentScores.sort((a, b) => b.score - a.score);
+
     currentScores.forEach(element => {
         const newListItem = document.createElement('li')
         newListItem.textContent =`${element.initials} : ${element.score}`;
         scoreList.append(newListItem);
     });
 }
-
-let submitScore = false;
 
 function saveToStorage(newScore){
 
@@ -288,5 +278,18 @@ function saveToStorage(newScore){
         loadScores(); 
     }
 }
+
+//starting up the first cascade of events
+startButton.addEventListener('click', function(){           
+    startTimer();     
+    replaceHomeSection();
+    proceedNext();   
+});
+
+// resets the highscore
+document.getElementById('reset-scores').addEventListener('click', function(event){
+    localStorage.removeItem('high-scores')
+    loadScores()
+})
 
 loadScores();
