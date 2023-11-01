@@ -30,7 +30,7 @@ The images below will disaply what the quiz looks like:
 <img width="1020" alt="score view" src="https://github.com/runningaroundintheabyss/quiz-game-time/assets/127266659/65a6a199-d2f7-4317-a297-fdf23e8c7b7b">
 
 
-Here is the link: https://runningaroundintheabyss.github.io/quiz-game-time/
+Here is the link: https://ivana-djordjevic.github.io/quiz-game-time/
 
 ## Instalations
 
